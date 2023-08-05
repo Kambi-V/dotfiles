@@ -5,7 +5,7 @@ local lspconfig = require "lspconfig"
 local eslint = require "custom.eslint"
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd" }
+local servers = { "html", "cssls", "tsserver", "clangd", "dockerls", "yamlls" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -49,3 +49,7 @@ lspconfig.rust_analyzer.setup {
     },
   },
 }
+
+lspconfig.yamlls.setup {}
+
+lspconfig.dockerls.setup {}

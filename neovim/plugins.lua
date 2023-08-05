@@ -3,6 +3,30 @@ local overrides = require "custom.configs.overrides"
 ---@type NvPluginSpec[]
 local plugins = {
   {
+    "junegunn/fzf",
+  },
+  {
+    "akinsho/flutter-tools.nvim",
+    -- lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- "stevearc/dressing.nvim", -- optional for vim.ui.select
+    },
+    config = function()
+      require("flutter-tools").setup {}
+    end,
+    ft = { "dart" },
+  },
+  {
+    "dart-lang/dart-vim-plugin",
+    ft = "dart",
+    init = function()
+      vim.g.dart_format_on_save = 1
+      vim.g.dartfmt = "dartfmt --fix --line-length 80"
+    end,
+  },
+
+  {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
@@ -45,6 +69,7 @@ local plugins = {
         --production
         "dockerfile-language-server",
         "yaml-language-server",
+        "yamlfmt",
         --web
         "css-lsp",
         "html-lsp",
@@ -108,6 +133,7 @@ local plugins = {
   {
     "mfussenegger/nvim-dap",
   },
+
   {
     "saecki/crates.nvim",
     ft = {
