@@ -81,6 +81,9 @@ local plugins = {
         "svelte-language-server",
         "tailwindcss-language-server",
         "vue-language-server",
+
+        --backend
+        "java-language-server",
       },
     },
   },
@@ -107,9 +110,18 @@ local plugins = {
     opt = true,
     ft = { "scala", "sbt" },
     requires = { "nvim-lua/plenary.nvim" },
-    -- run = ":MetalsInstall",
-    config = function()
-      require("metals").initialize_or_attach { metals_helloworld = false, ["metals.formatOnSave"] = true }
+    -- config = function()
+    --   require("metals").initialize_or_attach { metals_helloworld = false, ["metals.formatOnSave"] = true }
+    -- end,
+    init = function()
+      local metals_config = require("custom.configs.scala").config()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "scala", "sbt" },
+        callback = function()
+          require("metals").initialize_or_attach(metals_config)
+        end,
+        group = vim.api.nvim_create_augroup("nvim-metals", { clear = true }),
+      })
     end,
   },
   {
@@ -147,6 +159,11 @@ local plugins = {
   },
   {
     "hrsh7th/nvim-cmp",
+    requires = {
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-vsnip" },
+      { "hrsh7th/vim-vsnip" },
+    },
     opts = function()
       local M = require "plugins.configs.cmp"
       table.insert(M.sources, { name = "crates" })

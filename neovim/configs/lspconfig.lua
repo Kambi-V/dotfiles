@@ -53,3 +53,7 @@ lspconfig.rust_analyzer.setup {
 lspconfig.yamlls.setup {}
 
 lspconfig.dockerls.setup {}
+
+lspconfig.java_language_server.setup {}
+
+-- lspconfig.denols.setup {}
