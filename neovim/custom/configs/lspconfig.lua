@@ -55,5 +55,7 @@ lspconfig.yamlls.setup {}
 lspconfig.dockerls.setup {}
 
 lspconfig.java_language_server.setup {}
+lspconfig.kotlin_language_server.setup {}
 
+lspconfig.volar.setup {}
 -- lspconfig.denols.setup {}

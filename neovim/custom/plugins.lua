@@ -3,6 +3,9 @@ local overrides = require "custom.configs.overrides"
 ---@type NvPluginSpec[]
 local plugins = {
   {
+    "edluffy/hologram.nvim",
+  },
+  {
     "junegunn/fzf",
   },
   {
@@ -77,13 +80,14 @@ local plugins = {
         "eslint_d",
         "eslint-lsp",
         -- "deno",
-        "prettier",
+        "prettierd",
         "svelte-language-server",
         "tailwindcss-language-server",
         "vue-language-server",
 
         --backend
         "java-language-server",
+        "kotlin-language-server",
       },
     },
   },

@@ -2,7 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 set -gx EDITOR 'nvim'
-alias vi='nivm'
+alias vi='nvim'
 alias vim='nvim'
 alias python=python3
 
@@ -29,6 +29,9 @@ end
 # >>> coursier install directory >>>
 set -gx PATH "$PATH:/home/kambi/.local/share/coursier/bin"
 # <<< coursier install directory <<<
+set PATH $PATH (find ~/.sdkman/candidates/maven/current/bin -maxdepth 0)
+
+set PATH $PATH (find ~/.sdkman/candidates/kotlin/current/bin -maxdepth 0)
 set -x JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
 set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
 
@@ -37,8 +40,8 @@ set -x PATH $HOME/.pyenv/bin $PATH
 status --is-interactive; and . (pyenv init -|psub)
 
 # modular path
-set -x MODULAR_HOME "$HOME/.modular"
-set -x PATH "$MODULAR_HOME/pkg/packages.modular.com_mojo/bin" $PATH
+set -xg MODULAR_HOME "$HOME/.modular"
+set -xg PATH "$MODULAR_HOME/pkg/packages.modular.com_mojo/bin" $PATH
 
 
 #conda linked to fish
