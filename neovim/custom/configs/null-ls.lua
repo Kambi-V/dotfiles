@@ -28,16 +28,16 @@ local sources = {
   -- Lua
   b.formatting.stylua,
   b.formatting.yamlfmt,
-  b.diagnostics.eslint_d.with {
-    diagnostics_format = "[eslint] #{m}\n(#{c})",
-  },
+  -- b.diagnostics.eslint_d.with {
+  --   diagnostics_format = "[eslint] #{m}\n(#{c})",
+  -- },
   b.diagnostics.fish,
   -- python
   b.diagnostics.mypy,
   b.diagnostics.ruff,
   b.formatting.black,
   -- cpp
-  -- b.formatting.clang_format,
+  b.formatting.clang_format,
 }
 
 null_ls.setup {
@@ -48,6 +48,7 @@ null_ls.setup {
         group = augroup,
         buffer = bufnr,
         callback = function()
+          -- lsp_formatting(bufnr)
           vim.lsp.buf.format { async = false }
         end,
       })

@@ -9,6 +9,53 @@ M.override = {
   Comment = {
     italic = true,
   },
+  Boolean = {
+    italic = true,
+  },
+  -- imports
+  Include = {
+    italic = true,
+  },
+  -- for, while loops
+  Repeat = {
+    italic = true,
+  },
+  -- if statements
+  Conditional = {
+    italic = true,
+  },
+  -- variables
+  -- ["@variable"] = {
+  --   italic = true,
+  -- },
+  -- class, with, as keywords
+  ["@keyword"] = {
+    italic = true,
+  },
+  -- function keyword
+  ["@keyword.function"] = {
+    italic = true,
+  },
+  -- return, yield keywords
+  -- ["@keyword.return"] = {
+  --   italic = true,
+  -- },
+  -- function names
+  -- ["@function"] = {
+  --   italic = false,
+  -- },
+  -- symbolic
+  -- ["@operator"] = {
+  --   italic = true,
+  -- },
+  -- logical keywords
+  ["@keyword.operator"] = {
+    italic = true,
+  },
+  -- function parameters
+  ["@parameter"] = {
+    italic = true,
+  },
 }
 
 ---@type HLTable
