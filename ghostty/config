@@ -1,0 +1,7 @@
+background-opacity = 0.85
+# theme = Solarized Dark Higher Contrast
+theme = dark:Solarized Dark - Patched,light:GruvboxLight
+shell-integration = fish
+font-family = FiraCode Nerd Font
+font-family-italic = BlexMono Nerd Font Italic
+font-size = 12
