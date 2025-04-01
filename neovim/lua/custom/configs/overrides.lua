@@ -10,42 +10,21 @@ M.treesitter = {
     "typescript",
     "tsx",
     "svelte",
-    "c",
+    -- "c",
     "markdown",
     "markdown_inline",
     "vue",
-    "python",
-    "cpp",
-    "ocaml",
-    "haskell",
+    "fish",
+    "gitignore",
+    "graphql",
+    "http",
+    "sql",
   },
   indent = {
     enable = true,
     -- disable = {
     --   "python"
     -- },
-  },
-}
-
-M.mason = {
-  ensure_installed = {
-    -- lua stuff
-    -- "lua-language-server",
-    -- "stylua",
-
-    -- web dev stuff
-    -- "css-lsp",
-    -- "html-lsp",
-    -- "typescript-language-server",
-    -- "deno",
-    -- "prettier",
-    -- "svelte-language-server",
-    -- "tailwindcss-language-server",
-    -- "vue-language-server",
-    -- "eslint",
-    -- c/cpp stuff
-    -- "clangd",
-    -- "clang-format",
   },
 }
 

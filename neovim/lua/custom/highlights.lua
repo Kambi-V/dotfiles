@@ -6,6 +6,9 @@ local M = {}
 
 ---@type Base46HLGroupsList
 M.override = {
+  Constant = {
+    bold = true,
+  },
   Comment = {
     italic = true,
   },
