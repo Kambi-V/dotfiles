@@ -9,9 +9,9 @@ local M = {}
 local highlights = require "custom.highlights"
 
 M.base46 = {
-  theme = "solarized_light",
+  theme = "solarized_osaka",
 
-  theme_toggle = { "solarized_light", "solarized_light" },
+  theme_toggle = { "solarized_osaka", "solarized_osaka" },
   hl_override = highlights.override,
   hl_add = highlights.add,
   transparency = true,

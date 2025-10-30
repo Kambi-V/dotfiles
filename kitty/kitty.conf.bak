@@ -30,7 +30,7 @@ tab_activity_symbol none
 
 
 # BEGIN_KITTY_THEME
-# Solarized Light
+# Solarized Dark - Patched
 include current-theme.conf
 # END_KITTY_THEME
 

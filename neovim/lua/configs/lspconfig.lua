@@ -1,8 +1,5 @@
 -- load defaults i.e lua_lsp
-local lspconfig = require "lspconfig"
-local nvlsp = require "nvchad.configs.lspconfig"
-
-nvlsp.defaults() -- loads nvchad's defaults
+require("nvchad.configs.lspconfig").defaults()
 
 local servers = {
   "html",
@@ -17,40 +14,97 @@ local servers = {
   "tailwindcss",
 }
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
-end
+vim.lsp.enable(servers)
 
--- If you are using mason.nvim, you can get the ts_plugin_path like this
-local mason_registry = require "mason-registry"
-local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-  .. "/node_modules/@vue/language-server"
+local base_on_attach = vim.lsp.config.eslint.on_attach
+vim.lsp.config("eslint", {
+  on_attach = function(client, bufnr)
+    if not base_on_attach then
+      return
+    end
+
+    base_on_attach(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "LspEslintFixAll",
+    })
+  end,
+})
+
+vim.lsp.config("lua_ls", {
+  root_dir = function(bufnr, on_dir)
+    if not vim.fn.bufname(bufnr):match "%.txt$" then
+      on_dir(vim.fn.getcwd())
+    end
+  end,
+})
+
+-- local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+-- .. "/node_modules/@vue/language-server"
+-- local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+-- .. "/node_modules/@vue/language-server"
+-- For Mason v2,
+-- local vue_language_server_path = vim.fn.expand "$MASON/packages"
+-- .. "/vue-language-server"
+-- .. "/node_modules/@vue/language-server"
+-- or even
+local vue_language_server_path = vim.fn.stdpath "data"
+  .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+
 -- local svelte_language_server_path = mason_registry.get_package("svelte-language-server"):get_install_path()
 --   .. "/node_modules/typescript-svelte-plugin"
-
-lspconfig.ts_ls.setup {
-  init_options = {
-    plugins = {
-      {
-        name = "@vue/typescript-plugin",
-        location = vue_language_server_path,
-        languages = { "vue" },
+local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
+local vue_plugin = {
+  name = "@vue/typescript-plugin",
+  location = vue_language_server_path,
+  languages = { "vue" },
+  configNamespace = "typescript",
+}
+local vtsls_config = {
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
       },
-      -- {
-      --   name = "typescript-svelte-plugin",
-      --   location = svelte_language_server_path,
-      --   languages = { "svelte" },
-      -- },
     },
   },
-  filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" },
+  filetypes = tsserver_filetypes,
 }
 
-lspconfig.volar.setup {}
+local ts_ls_config = {
+  init_options = {
+    plugins = {
+      vue_plugin,
+    },
+  },
+  filetypes = tsserver_filetypes,
+}
+local vue_ls_config = {}
+
+vim.lsp.config("vtsls", vtsls_config)
+vim.lsp.config("vue_ls", vue_ls_config)
+vim.lsp.config("ts_ls", ts_ls_config)
+vim.lsp.enable { "vtsls", "vue_ls" } -- If using `ts_ls` replace `vtsls` to `ts_ls`
+
+-- lspconfig.ts_ls.setup {
+--   init_options = {
+--     plugins = {
+--       {
+--         name = "@vue/typescript-plugin",
+--         location = vue_language_server_path,
+--         languages = { "vue" },
+--       },
+-- {
+--   name = "typescript-svelte-plugin",
+--   location = svelte_language_server_path,
+--   languages = { "svelte" },
+-- },
+--     },
+--   },
+--   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" },
+-- }
 
 -- local customizations = {
 --   { rule = "style/*", severity = "off", fixable = true },
@@ -106,32 +160,6 @@ lspconfig.volar.setup {}
 --     rulesCustomizations = customizations,
 --   },
 -- }
-lspconfig.eslint.setup {
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-  end,
-  capabilities = nvlsp.capabilities,
-  on_init = nvlsp.on_init,
-  -- filetypes = {
-  --   "javascript",
-  --   "javascriptreact",
-  --   "javascript.jsx",
-  --   "typescript",
-  --   "typescriptreact",
-  --   "typescript.tsx",
-  --   "vue",
-  --   "svelte",
-  --   "astro",
-  -- },
-  -- root_dir = function(fname)
-  --   root_file = util.insert_package_json(root_file, "eslintConfig", fname)
-  --   return util.root_pattern(unpack(root_file))(fname)
-  -- end,
-}
-
 -- lspconfig.rust_analyzer.setup {
 --   on_attach = nvlsp.on_attach,
 --   capabilities = nvlsp.capabilities,

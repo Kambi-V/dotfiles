@@ -8,9 +8,8 @@ set -U fish_greeting ""
 alias pn='pnpm'
 alias g='git'
 alias ga='git add'
-alias gpp=' git pull && git push'
+alias gasp='git add . && czg && git pull && git push'
 alias gs='czg'
-alias sign='czg'
 alias vi='nvim'
 alias vim='nvim'
 alias python=python3
@@ -19,6 +18,8 @@ alias kth='kitten themes'
 alias v='npx vitest run'
 alias fd='fdfind'
 alias rg='rgrep'
+alias pip='pip3'
+alias docker='podman'
 
 kubectl completion fish | source
 
@@ -73,11 +74,20 @@ set -x PATH $DENO_INSTALL/bin:$PATH
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
+# docker
+set -Ux DOCKER_HOST unix:///run/user/1000/podman/podman-machine-default-api.sock
+set -x TESTCONTAINERS_RYUK_DISABLED true
+
+# infisical
+# set -x INFISICAL_PROJECT_ID 1589d614-ca97-409d-82dd-bb16b4686dc4
+
 # opam configuration
 source /home/kambi/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/kambi/.ghcup/bin $PATH # ghcup-env
 
 set -gx PATH $PATH /home/kambi/.local/bin
-# setup TOKEN, NPM_TOKEN and USERNAME from github
+set -x USERNAME Kambi-V
+
 set -gx PATH $PATH /home/kambi/.local/bin
+starship init fish | source

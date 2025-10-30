@@ -19,7 +19,7 @@ return {
   },
   { "wakatime/vim-wakatime", lazy = false },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
         "lua-language-server",
@@ -49,6 +49,46 @@ return {
         "svelte-language-server",
         "tailwindcss-language-server",
         "vue-language-server",
+        "vtsls",
+      },
+    },
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+  },
+  {
+    "mason-org/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "lua-language-server",
+        "stylua",
+
+        "shfmt",
+        "shellcheck",
+        "astro-language-server",
+        "bash-language-server",
+
+        -- devops
+        "dockerfile-language-server",
+        "yaml-language-server",
+        "yamlfmt",
+        "ada-language-server",
+        -- web
+        "css-lsp",
+        "stylelint-lsp",
+
+        -- "stylelint",
+        "html-lsp",
+        "typescript-language-server",
+        "eslint_d",
+        "eslint-lsp",
+        -- "deno",
+        "prettierd",
+        "svelte-language-server",
+        "tailwindcss-language-server",
+        "vue-language-server",
+        "vtsls",
       },
     },
   },
